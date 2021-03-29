@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ATao.Test;
+using ATao.DataInit;
 
 namespace ATao.Model
 {
     public class Tao
     {
-        public int x;
-        public int y;
+        public Vector2 vector2 = new Vector2();
         public Tao previous;
         public int f;
         public int g;
@@ -16,11 +15,14 @@ namespace ATao.Model
 
         public Tao(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.vector2.x = x;
+            this.vector2.y = y;
         }
 
-        public void Refresh(Tao end)
+        /**
+        重新计算数据
+        */
+        public void Refresh(Vector2 end)
         {
             CalculateG();
             CalculateH(end);
@@ -41,28 +43,28 @@ namespace ATao.Model
             this.g = g;
         }
 
-        public void CalculateH(Tao end)
+        public void CalculateH(Vector2 end)
         {
-            this.h = Math.Abs(this.x - end.x) + Math.Abs(this.y - end.y);
+            this.h = Math.Abs(this.vector2.x - end.x ) + Math.Abs(this.vector2.y - end.y);
         }
 
         public List<Tao> getNextList()
         {
             List<Tao> nextList = new List<Tao>();
 
-            Tao west = new Tao(this.x - 1, this.y);
+            Tao west = new Tao(this.vector2.x - 1, this.vector2.y);
             west.previous = this;
             if (canBeUse(west)) nextList.Add(west);
 
-            Tao east = new Tao(this.x + 1, this.y);
+            Tao east = new Tao(this.vector2.x + 1, this.vector2.y);
             east.previous = this;
             if (canBeUse(east)) nextList.Add(east);
 
-            Tao north = new Tao(this.x, this.y + 1);
+            Tao north = new Tao(this.vector2.x, this.vector2.y + 1);
             north.previous = this;
             if (canBeUse(north)) nextList.Add(north);
 
-            Tao south = new Tao(this.x, this.y - 1);
+            Tao south = new Tao(this.vector2.x, this.vector2.y - 1);
             south.previous = this;
             if (canBeUse(south)) nextList.Add(south);
 
@@ -71,9 +73,7 @@ namespace ATao.Model
 
         public bool canBeUse(Tao next)
         {
-            if (Block.blockList.Where(q => q.x == next.x && q.y == next.y).Count() > 0) return false;
-
-            return next.x < 20 && next.x > 0 && next.y < 20 && next.x > 0;
+            return MapFactory.map.Where(q=>q.vector.x == next.vector2.x&& q.vector.y == next.vector2.y && q.type == 0).Count()>0;
         }
     }
 }
