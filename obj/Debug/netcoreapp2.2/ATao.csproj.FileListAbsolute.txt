@@ -1,0 +1,11 @@
+/Users/gwq/Documents/算法/ATao/bin/Debug/netcoreapp2.2/ATao.deps.json
+/Users/gwq/Documents/算法/ATao/bin/Debug/netcoreapp2.2/ATao.runtimeconfig.json
+/Users/gwq/Documents/算法/ATao/bin/Debug/netcoreapp2.2/ATao.runtimeconfig.dev.json
+/Users/gwq/Documents/算法/ATao/bin/Debug/netcoreapp2.2/ATao.dll
+/Users/gwq/Documents/算法/ATao/bin/Debug/netcoreapp2.2/ATao.pdb
+/Users/gwq/Documents/算法/ATao/obj/Debug/netcoreapp2.2/ATao.csprojAssemblyReference.cache
+/Users/gwq/Documents/算法/ATao/obj/Debug/netcoreapp2.2/ATao.csproj.CoreCompileInputs.cache
+/Users/gwq/Documents/算法/ATao/obj/Debug/netcoreapp2.2/ATao.AssemblyInfoInputs.cache
+/Users/gwq/Documents/算法/ATao/obj/Debug/netcoreapp2.2/ATao.AssemblyInfo.cs
+/Users/gwq/Documents/算法/ATao/obj/Debug/netcoreapp2.2/ATao.dll
+/Users/gwq/Documents/算法/ATao/obj/Debug/netcoreapp2.2/ATao.pdb
