@@ -61,18 +61,17 @@ namespace ATao.Model
 
                     taoStack = new List<Vector2>();
 
-                    while (now.previous != null)
-                    {
+                    while(now!=null){
                         taoStack.Add(now.vector2);
                         now = now.previous;
                     }
 
                     taoStack.Reverse();
 
-                    foreach (var item in taoStack)
-                    {
-                        Console.WriteLine(String.Format("{0},{1}", item.x, item.y));
-                    }
+                    // foreach (var item in taoStack)
+                    // {
+                    //     Console.WriteLine(String.Format("{0},{1}", item.x, item.y));
+                    // }
 
                     break;
                 }

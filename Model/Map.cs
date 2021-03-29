@@ -4,8 +4,9 @@ namespace ATao.Model
     {
         public Vector2 vector = new Vector2();
 
-        //0:通道，1障碍物，2有车，3冻结
+        //0:通道，1障碍物
         public int type;
+        //todo 有车，冻结
 
         public Map(int x,int y,int type)
         {

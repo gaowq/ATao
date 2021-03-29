@@ -6,8 +6,8 @@ namespace ATao.DataInit
     public class MapFactory
     {
         public static List<Map> map;
-        public static int x = 5;//横坐标数量
-        public static int y = 5;//纵坐标数量
+        public static int xl = 5;//横坐标数量
+        public static int yl = 5;//纵坐标数量
 
         public static void Create()
         {
