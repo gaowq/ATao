@@ -6,7 +6,9 @@ namespace ATao.Model
 
         //0:通道，1障碍物
         public int type;
-        //todo 有车，冻结
+
+        //0:空闲，1有车，2冻结
+        public int dynamicType;
 
         public Map(int x,int y,int type)
         {

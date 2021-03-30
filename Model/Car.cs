@@ -6,11 +6,16 @@ namespace ATao.Model
 {
     public class Car
     {
+        public int carId;
         //0，未开始；1，进行中，2到达;
         public int status;
 
         //0,无路，1有路，2互卡
         public int hasTao;
+
+        public Map nowMap;
+
+        public Map preMap;
 
         public Vector2 start = new Vector2();
         public Vector2 now = new Vector2();
@@ -19,8 +24,9 @@ namespace ATao.Model
         public List<Tao> open;
         public List<Tao> close;
 
-        public Car(int x1, int y1, int x2, int y2)
+        public Car(int carId,int x1, int y1, int x2, int y2)
         {
+            this.carId = carId;
             this.status = 0;
             this.hasTao = 0;
             this.start = new Vector2();
@@ -44,6 +50,11 @@ namespace ATao.Model
 
         public void GenerateTao()
         {
+            this.hasTao = 0;
+            this.open = new List<Tao>();
+            this.close = new List<Tao>();
+            this.taoStack = new List<Vector2>();
+
             Tao start = new Tao(this.now.x, this.now.y);
             start.Refresh(this.end);
             open.Add(start);
@@ -56,23 +67,18 @@ namespace ATao.Model
 
                 if (now.vector2.x == end.x && now.vector2.y == end.y)
                 {
-                    Console.WriteLine("找到路径");
+                    //Console.WriteLine("找到路径");
                     this.hasTao = 1;
 
                     taoStack = new List<Vector2>();
 
-                    while(now!=null){
+                    while(now.previous!=null){
                         taoStack.Add(now.vector2);
                         now = now.previous;
                     }
 
                     taoStack.Reverse();
-
-                    // foreach (var item in taoStack)
-                    // {
-                    //     Console.WriteLine(String.Format("{0},{1}", item.x, item.y));
-                    // }
-
+                    Console.WriteLine(taoStack.Count());
                     break;
                 }
 

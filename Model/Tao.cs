@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ATao.DataInit;
+using ATao.Util;
 
 namespace ATao.Model
 {
@@ -9,6 +10,7 @@ namespace ATao.Model
     {
         public Vector2 vector2 = new Vector2();
         public Tao previous;
+        
         public int f;
         public int g;
         public int h;
@@ -45,7 +47,7 @@ namespace ATao.Model
 
         public void CalculateH(Vector2 end)
         {
-            this.h = Math.Abs(this.vector2.x - end.x ) + Math.Abs(this.vector2.y - end.y);
+            this.h = Math.Abs(this.vector2.x - end.x) + Math.Abs(this.vector2.y - end.y);
         }
 
         public List<Tao> getNextList()
@@ -73,7 +75,9 @@ namespace ATao.Model
 
         public bool canBeUse(Tao next)
         {
-            return MapFactory.map.Where(q=>q.vector.x == next.vector2.x&& q.vector.y == next.vector2.y && q.type == 0).Count()>0;
+            var nextV2 = next.vector2;
+            return MapFactory.map.Where(q => q.vector.x == nextV2.x && q.vector.y == nextV2.y && q.type == 0 && q.dynamicType == 0).Count() > 0;
+            //return CommonUtil.CanRun(next.vector2);
         }
     }
 }
