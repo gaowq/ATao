@@ -13,7 +13,7 @@ namespace ATao.Util
         {
             for (var y = 1; y <= MapFactory.yl; y++)
             {
-                for (var x = 1; x < MapFactory.xl; x++)
+                for (var x = 1; x <= MapFactory.xl; x++)
                 {
                     var map = MapFactory.map.Where(q=>q.vector.x==x&&q.vector.y==y).FirstOrDefault();
 

@@ -13,10 +13,6 @@ namespace ATao.Model
         //0,无路，1有路，2互卡
         public int hasTao;
 
-        public Map nowMap;
-
-        public Map preMap;
-
         public Vector2 start = new Vector2();
         public Vector2 now = new Vector2();
         public Vector2 end = new Vector2();
@@ -24,7 +20,7 @@ namespace ATao.Model
         public List<Tao> open;
         public List<Tao> close;
 
-        public Car(int carId,int x1, int y1, int x2, int y2)
+        public Car(int carId, int x1, int y1, int x2, int y2)
         {
             this.carId = carId;
             this.status = 0;
@@ -72,13 +68,23 @@ namespace ATao.Model
 
                     taoStack = new List<Vector2>();
 
-                    while(now.previous!=null){
+                    while (now.previous != null)
+                    {
                         taoStack.Add(now.vector2);
                         now = now.previous;
                     }
 
                     taoStack.Reverse();
-                    Console.WriteLine(taoStack.Count());
+                    //Console.WriteLine(taoStack.Count());
+
+                    Console.Write("car:" + this.carId + "#");
+
+                    foreach (var item in taoStack)
+                    {
+                        Console.Write(item.x +""+ item.y + "->");
+                    }
+                    Console.WriteLine();
+
                     break;
                 }
 

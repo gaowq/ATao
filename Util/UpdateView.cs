@@ -13,59 +13,43 @@ namespace ATao.Util
             {
                 foreach (var car in CarFactory.cars)
                 {
-                    //car.GenerateTao();
-
                     if (car.taoStack.Count > 0)
                     {
-                        Console.WriteLine(car.carId+"hasTao"+car.hasTao);
+                        //当前步骤解锁
                         var map = MapFactory.map.Where(q => q.vector.x == car.now.x && q.vector.y == car.now.y).FirstOrDefault();
                         map.dynamicType = 0;
 
-                        //car.GenerateTao();
+                        //解冻
+                        if (car.taoStack.Count() > 0)
+                        {
+                            var newmap2 = MapFactory.map.Where(q => q.vector.x == car.taoStack[0].x && q.vector.y == car.taoStack[0].y).FirstOrDefault();
+                            if(newmap2.dynamicType==2)newmap2.dynamicType = 0;
+                        }
 
-                        //var map = MapFactory.map.Where(q=>q.vector.x == car.now.x && q.vector.y==car.now.y).FirstOrDefault();
                         //前进
-                        // if (car.taoStack.Count() > 1)
-                        // {
-
-                        //     var map2 = MapFactory.map.Where(q => q.vector.x == car.taoStack[1].x && q.vector.y == car.taoStack[1].y).FirstOrDefault();
-                        //     if (map2.dynamicType != 0)//下个节点有车或者
-                        //     {
-                        //         Console.WriteLine("遇到阻碍" + car.carId);
-                        //         //car.GenerateTao();
-                        //         continue;
-                        //     }
-                        // }
-
                         car.now = car.taoStack[0];
                         car.taoStack.RemoveAt(0);
 
-                        
-
+                        //设置未来步骤为障碍物。
                         var newmap = MapFactory.map.Where(q => q.vector.x == car.now.x && q.vector.y == car.now.y).FirstOrDefault();
                         newmap.dynamicType = 1;
 
+                        
+
+                        //更新路径
                         car.GenerateTao();
 
-                        // car.nowMap = newmap;
-
-                        // if (car.preMap != null)
-                        // {
-                        //     car.preMap.dynamicType = 1;
-                        //     car.nowMap = car.preMap;
-                        // }
-
-                        // if (car.taoStack.Count() > 0)
-                        // {
-                        //     car.preMap = MapFactory.map.Where(q => q.vector.x == car.taoStack[0].x && q.vector.y == car.taoStack[0].y).FirstOrDefault();
-                        //     if (car.preMap != null)
-                        //     {
-                        //         car.preMap.dynamicType = 2;
-                        //     }
-                        // }
-
-                        //car.GenerateTao();
-                    }else{
+                        //冻结路径
+                        //todo 已经被冻结
+                        if (car.taoStack.Count() > 0)
+                        {
+                            var newmap2 = MapFactory.map.Where(q => q.vector.x == car.taoStack[0].x && q.vector.y == car.taoStack[0].y).FirstOrDefault();
+                            newmap2.dynamicType = 2;
+                            Console.WriteLine("冻结："+car.carId+"#"+newmap2.vector.x+""+newmap2.vector.y);
+                        }
+                    }
+                    else
+                    {
                         car.GenerateTao();
                     }
                 }
