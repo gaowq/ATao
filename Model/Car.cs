@@ -11,7 +11,11 @@ namespace ATao.Model
         public int status;
 
         //0,无路，1有路，2互卡
-        public int hasTao;
+        //public int hasTao;
+
+        public int age;
+
+        public Vector2 realEnd;
 
         public Vector2 start = new Vector2();
         public Vector2 now = new Vector2();
@@ -24,7 +28,8 @@ namespace ATao.Model
         {
             this.carId = carId;
             this.status = 0;
-            this.hasTao = 0;
+            //this.hasTao = 0;
+            this.age = 0;
             this.start = new Vector2();
             this.now = new Vector2();
             this.end = new Vector2();
@@ -46,7 +51,7 @@ namespace ATao.Model
 
         public void GenerateTao()
         {
-            this.hasTao = 0;
+            //this.hasTao = 0;
             this.open = new List<Tao>();
             this.close = new List<Tao>();
             this.taoStack = new List<Vector2>();
@@ -64,7 +69,7 @@ namespace ATao.Model
                 if (now.vector2.x == end.x && now.vector2.y == end.y)
                 {
                     //Console.WriteLine("找到路径");
-                    this.hasTao = 1;
+                    //this.hasTao = 1;
 
                     taoStack = new List<Vector2>();
 
@@ -85,6 +90,12 @@ namespace ATao.Model
                     }
                     Console.WriteLine();
 
+
+                    if(this.realEnd!=null)
+                    {
+                        this.end = realEnd;
+                        this.realEnd = null;
+                    }
                     break;
                 }
 

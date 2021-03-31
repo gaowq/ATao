@@ -16,7 +16,7 @@ namespace ATao.DataInit
                 mapf1.dynamicType = 1;
             }
 
-            var mapf2 = MapFactory.map.Where(q => q.vector.x == 1 && q.vector.y == 4).FirstOrDefault();
+            var mapf2 = MapFactory.map.Where(q => q.vector.x == 1 && q.vector.y == 5).FirstOrDefault();
 
             if (mapf2 != null)
             {
@@ -25,7 +25,7 @@ namespace ATao.DataInit
 
             //todo 互相锁死
             Car car1 = new Car(1, 1, 1, 1, 5);
-            Car car2 = new Car(2, 1, 4, 1, 1);
+            Car car2 = new Car(2, 1, 5, 1, 1);
 
             cars = new List<Car>();
             cars.Add(car1);

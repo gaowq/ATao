@@ -15,23 +15,30 @@ namespace ATao.Util
             {
                 for (var x = 1; x <= MapFactory.xl; x++)
                 {
-                    var map = MapFactory.map.Where(q=>q.vector.x==x&&q.vector.y==y).FirstOrDefault();
+                    var map = MapFactory.map.Where(q => q.vector.x == x && q.vector.y == y).FirstOrDefault();
 
-                    if(map!=null)
+                    if (map != null)
                     {
-                        var cars =CarFactory.cars.Where(q=>q.now.x==x &&q.now.y==y);
-                        if(cars.Count()==1)Console.Write(".");
-                        if(cars.Count()>1)Console.Write("*");//碰撞
-
-                        switch(map.type)
+                        var cars = CarFactory.cars.Where(q => q.now.x == x && q.now.y == y);
+                        if (cars.Count() == 1)
                         {
-                            case 0:
-                                Console.Write(" ");
-                                break;
-                            case 1:
-                                Console.Write("+");
-                                break;
+                            Console.Write("+");
+
                         }
+                        else
+                        {
+                            switch (map.type)
+                            {
+                                case 0:
+                                    Console.Write(".");
+                                    break;
+                                case 1:
+                                    Console.Write("*");
+                                    break;
+                            }
+                        }
+
+                        //if(cars.Count()>1)Console.Write("*");//碰撞
                     }
                 }
                 Console.WriteLine("");
