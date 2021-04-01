@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ATao.DataInit;
 
 namespace ATao.Model
 {
@@ -17,18 +18,18 @@ namespace ATao.Model
 
         public Vector2 realEnd;
 
-        public Vector2 start = new Vector2();
-        public Vector2 now = new Vector2();
-        public Vector2 end = new Vector2();
+        public Vector2 start ;
+        public Vector2 now ;
+        public Vector2 end ;
 
         public List<Tao> open;
         public List<Tao> close;
 
-        public Car(int carId, int x1, int y1, int x2, int y2)
+        public static int autoCarId = 0;
+        public Car(int x1, int y1, int x2, int y2)
         {
-            this.carId = carId;
+            this.carId = ++autoCarId;
             this.status = 0;
-            //this.hasTao = 0;
             this.age = 0;
             this.start = new Vector2();
             this.now = new Vector2();
@@ -43,7 +44,9 @@ namespace ATao.Model
             this.close = new List<Tao>();
             this.taoStack = new List<Vector2>();
 
-            GenerateTao();
+            //锁定自己所在的点位
+            var mapf1 = MapFactory.FindByVector(this.now);//.map.Where(q => q.vector.x == 1 && q.vector.y == 1).FirstOrDefault();
+            mapf1.dynamicType = 1;
         }
 
         //路径
@@ -80,18 +83,17 @@ namespace ATao.Model
                     }
 
                     taoStack.Reverse();
-                    //Console.WriteLine(taoStack.Count());
 
                     Console.Write("car:" + this.carId + "#");
 
                     foreach (var item in taoStack)
                     {
-                        Console.Write(item.x +""+ item.y + "->");
+                        Console.Write(item.x + "" + item.y + "->");
                     }
                     Console.WriteLine();
 
 
-                    if(this.realEnd!=null)
+                    if (this.realEnd != null)
                     {
                         this.end = realEnd;
                         this.realEnd = null;

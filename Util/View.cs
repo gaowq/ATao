@@ -7,8 +7,7 @@ namespace ATao.Util
     public class View
     {
 
-
-
+        //刷新页面显示
         public static void DisplayView()
         {
             for (var y = 1; y <= MapFactory.yl; y++)

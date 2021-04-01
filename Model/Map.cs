@@ -15,6 +15,7 @@ namespace ATao.Model
             this.vector.x = x;
             this.vector.y = y;
             this.type = type;
+            this.dynamicType = 0;
         }
     }
 }

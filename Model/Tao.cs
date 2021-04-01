@@ -10,7 +10,7 @@ namespace ATao.Model
     {
         public Vector2 vector2 = new Vector2();
         public Tao previous;
-        
+
         public int f;
         public int g;
         public int h;
@@ -75,8 +75,10 @@ namespace ATao.Model
 
         public bool canBeUse(Tao next)
         {
-            var nextV2 = next.vector2;
-            return MapFactory.map.Where(q => q.vector.x == nextV2.x && q.vector.y == nextV2.y && q.type == 0 && q.dynamicType == 0).Count() > 0;
+            //var nextV2 = next.vector2;
+            var map = MapFactory.FindByVector(next.vector2);
+
+            return (map != null && map.type == 0 && map.dynamicType == 0);//MapFactory.map.Where(q => q.vector.x == nextV2.x && q.vector.y == nextV2.y && q.type == 0 && q.dynamicType == 0).Count() > 0;
             //return CommonUtil.CanRun(next.vector2);
         }
     }
