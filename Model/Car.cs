@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ATao.DataInit;
+using ATao.Util;
 
 namespace ATao.Model
 {
@@ -18,12 +19,12 @@ namespace ATao.Model
 
         public Vector2 realEnd;
 
-        public Vector2 start ;
-        public Vector2 now ;
-        public Vector2 end ;
+        public Vector2 start;
+        public Vector2 now;
+        public Vector2 end;
 
-        public List<Tao> open;
-        public List<Tao> close;
+        public Dictionary<string, Tao> open;
+        public Dictionary<string, Tao> close;
 
         public static int autoCarId = 0;
         public Car(int x1, int y1, int x2, int y2)
@@ -40,12 +41,10 @@ namespace ATao.Model
             this.now.y = y1;
             this.end.x = x2;
             this.end.y = y2;
-            this.open = new List<Tao>();
-            this.close = new List<Tao>();
             this.taoStack = new List<Vector2>();
 
             //锁定自己所在的点位
-            var mapf1 = MapFactory.FindByVector(this.now);//.map.Where(q => q.vector.x == 1 && q.vector.y == 1).FirstOrDefault();
+            var mapf1 = MapFactory.FindByVector(this.now);
             mapf1.dynamicType = 1;
         }
 
@@ -54,26 +53,24 @@ namespace ATao.Model
 
         public void GenerateTao()
         {
-            //this.hasTao = 0;
-            this.open = new List<Tao>();
-            this.close = new List<Tao>();
+            this.open = new Dictionary<string, Tao>();
+            this.close = new Dictionary<string, Tao>();
             this.taoStack = new List<Vector2>();
 
             Tao start = new Tao(this.now.x, this.now.y);
             start.Refresh(this.end);
-            open.Add(start);
+            open.Add(CommonUtil.CombineKeyByVector2(start.vector2), start);
 
             while (open.Count > 0)
             {
-                var now = open.OrderBy(q => q.f).FirstOrDefault();
-                open.Remove(now);
-                close.Add(now);
+                var nowDic = open.OrderBy(q => q.Value.f).FirstOrDefault();
+                var now = nowDic.Value;
+                open.Remove(nowDic.Key);
+                close.Add(nowDic.Key, nowDic.Value);
 
                 if (now.vector2.x == end.x && now.vector2.y == end.y)
                 {
-                    //Console.WriteLine("找到路径");
-                    //this.hasTao = 1;
-
+                    //找到路径
                     taoStack = new List<Vector2>();
 
                     while (now.previous != null)
@@ -105,12 +102,13 @@ namespace ATao.Model
 
                 foreach (var next in nextList)
                 {
-                    if (close.Where(q => q.vector2.x == next.vector2.x && q.vector2.y == next.vector2.y).Count() > 0) continue;
+                    string nextKey = CommonUtil.CombineKeyByVector2(next.vector2);
 
-                    if (open.Where(q => q.vector2.x == next.vector2.x && q.vector2.y == next.vector2.y).Count() > 0)
+                    if (close.ContainsKey(nextKey)) continue;
+
+                    if (open.ContainsKey(nextKey))
                     {
-                        var openSame = open.Where(q => q.vector2.x == next.vector2.x && q.vector2.y == next.vector2.y).FirstOrDefault();
-                        //int nextG = g(next);
+                        var openSame = open[nextKey];
                         next.Refresh(end);
 
                         if (openSame.g > next.g)
@@ -123,7 +121,7 @@ namespace ATao.Model
                     {
                         next.previous = now;
                         next.Refresh(end);
-                        open.Add(next);
+                        open.Add(nextKey, next);
                     }
                 }
             }

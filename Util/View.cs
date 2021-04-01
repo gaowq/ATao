@@ -36,8 +36,6 @@ namespace ATao.Util
                                     break;
                             }
                         }
-
-                        //if(cars.Count()>1)Console.Write("*");//碰撞
                     }
                 }
                 Console.WriteLine("");
